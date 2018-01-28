@@ -17,34 +17,19 @@ public class NumberGenerator : MonoBehaviour {
     public int D10 { get { return Mathf.RoundToInt(d10); } }
     public int D12 { get { return Mathf.RoundToInt(d12); } }
     public int D20 { get { return Mathf.RoundToInt(d20); } }
-
-
-    // Use this for initialization
-    void Start () {
-        //for (int i = 0; i < 100; i++) {
-            //RollXDices(10, D10);
-        //}
-    }
-
-    public List<int> RollXDices(int diceAmount, float diceQuality){
+        
+    public List<int> RollXDices(int diceAmount, int diceQuality){
         List<int> rollResult = new List<int>();
-        //string result = "[-";
         for (int i = 0; i < diceAmount; i++) {
-            rollResult.Add(GiveRandomNumber(D01, diceQuality));
+            rollResult.Add(GiveRandomNumber(diceQuality));
         }
-        //foreach (int roll in rollResult) {
-        //    result += roll + "-";
-        //}
-        //result += "]";
-        //Debug.Log(result);
         return rollResult;
     }
 
-    public int GiveRandomNumber(float minValue, float diceQuality) {
-        return Mathf.FloorToInt(Random.Range(minValue, diceQuality));
+    public int GiveRandomNumber(float diceQuality) {
+        return Mathf.FloorToInt(Random.Range(D01, diceQuality));
     }
-
-    // Update is called once per frame
+    
     void Update () {
 		
 	}

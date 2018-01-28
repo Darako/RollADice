@@ -5,21 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GenerateDices : MonoBehaviour {
-
+    [Header("Public Settings")]
     public int diceMaximumLimit = 6;
-
-    public Button bDiceQuality;
-    public Button bDiceAmount;
-    public Image iDiceQuality;
-    public Image iDiceAmount;
-
     private int diceAmount = 1;
     private int diceQuality;
-
+    [Header("Script Requirements")]
+    public Text tResult;
+    public Button bDiceQuality;
+    public Button bDiceAmount;
+    public Button bRollDices;
+    public Image iDiceQuality;
+    public Image iDiceAmount;
     public List<Sprite> dices;
     public List<Sprite> numbers;
-
-
     NumberGenerator ng;
 
     void Start() {
@@ -27,8 +25,8 @@ public class GenerateDices : MonoBehaviour {
         diceQuality = ng.D04;
         bDiceAmount.onClick.AddListener(IncreaseDiceAmount);
         bDiceQuality.onClick.AddListener(IncreaseDiceQuality);
+        bRollDices.onClick.AddListener(RollDices);
     }
-
 
     public void IncreaseDiceQuality() {
         if (ng.D04 == diceQuality) {
@@ -54,9 +52,8 @@ public class GenerateDices : MonoBehaviour {
 
     public void IncreaseDiceAmount() {
         diceAmount++;
-        if (diceAmount >= diceMaximumLimit){
+        if (diceAmount > diceMaximumLimit){
             diceAmount = 1;
-            return;
         }
         ChangeDiceAmountIcon();
     }
@@ -72,5 +69,13 @@ public class GenerateDices : MonoBehaviour {
         }
     }
 
-
+    public void RollDices() {
+        List<int> rollResult = ng.RollXDices(diceAmount, diceQuality);
+        string result = "[-"; 
+        foreach (int dice in rollResult) {
+            result += dice + "-";
+        }
+        result += "]";
+        tResult.text = result;
+    }
 }
